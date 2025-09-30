@@ -1,8 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 
 import { BalanceCard } from './components/balance-card/balance-card';
-
-type TransactionsProp = { value: number; type: string };
+import { Transaction } from '../../../../shared/transaction/interfaces/transaction';
 
 @Component({
   selector: 'app-balance',
@@ -11,7 +10,7 @@ type TransactionsProp = { value: number; type: string };
   styleUrl: './balance.scss',
 })
 export class Balance {
-  transactions = input.required<TransactionsProp[]>();
+  transactions = input.required<Transaction[]>();
 
   totalIncomes = computed(() => {
     return this.transactions()
