@@ -17,6 +17,24 @@
       "title": "Aluguel",
       "value": 100,
       "type": "outcome"
+    },
+    {
+      "type": "outcome",
+      "title": "teste",
+      "value": 10,
+      "id": 4
+    },
+    {
+      "type": "income",
+      "title": "teste 2",
+      "value": 200,
+      "id": 5
+    },
+    {
+      "type": "outcome",
+      "title": "teste 3",
+      "value": 20,
+      "id": 6
     }
   ]
 }

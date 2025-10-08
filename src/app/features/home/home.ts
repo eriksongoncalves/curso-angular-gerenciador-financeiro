@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 
 import { Balance } from './components/balance/balance';
@@ -10,7 +11,7 @@ import { TransactionsService } from '../../shared/transaction/services/transacti
 
 @Component({
   selector: 'app-home',
-  imports: [Balance, TransactionItem, NoTransactions],
+  imports: [Balance, TransactionItem, NoTransactions, MatButtonModule, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
