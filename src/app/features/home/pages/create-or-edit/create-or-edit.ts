@@ -15,6 +15,7 @@ import {
   TransactionPayload,
 } from '../../../../shared/transaction/interfaces/transaction';
 import { FeedbackService } from '../../../../shared/transaction/services/feedback';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-create',
@@ -63,25 +64,34 @@ export class CreateOrEdit implements OnInit {
     }
   }
 
+  private createOrEdit(payload: TransactionPayload): Observable<Transaction> {
+    if (this.currentTransaction) {
+      return this._transactionService.edit(this.currentTransaction.id, payload).pipe(
+        tap(() => {
+          this._feedbackService.success('Transação alterada com sucesso!');
+        }),
+      );
+    }
+
+    return this._transactionService.create(payload).pipe(
+      tap(() => {
+        this._feedbackService.success('Transação criada com sucesso!');
+      }),
+    );
+  }
+
   submit(): void {
     if (this.form.valid) {
       const payload = this.form.value as TransactionPayload;
 
-      if (this.currentTransaction) {
-        this._transactionService.edit(this.currentTransaction.id, payload).subscribe({
-          next: () => {
-            this._feedbackService.success('Transação alterada com sucesso!');
-            this._router.navigate(['/']);
-          },
-        });
-      } else {
-        this._transactionService.create(payload).subscribe({
-          next: () => {
-            this._feedbackService.success('Transação criada com sucesso!');
-            this._router.navigate(['/']);
-          },
-        });
-      }
+      this.createOrEdit(payload).subscribe({
+        next: () => {
+          this._router.navigate(['/']);
+        },
+        error: (error) => {
+          console.log('>>> ', error);
+        },
+      });
     }
   }
 }
