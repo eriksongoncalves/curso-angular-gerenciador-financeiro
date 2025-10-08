@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
@@ -33,6 +33,8 @@ export class CreateOrEdit implements OnInit {
   private currentTransaction?: Transaction;
   readonly transactionType = TransactionType;
 
+  transaction = input<Transaction>();
+
   form = new FormGroup({
     type: new FormControl('', [Validators.required]),
     title: new FormControl('', [Validators.required]),
@@ -42,10 +44,11 @@ export class CreateOrEdit implements OnInit {
   private readonly _transactionService = inject(TransactionsService);
   private readonly _router = inject(Router);
   private readonly _feedbackService = inject(FeedbackService);
-  private readonly _activatedRoute = inject(ActivatedRoute);
+  // private readonly _activatedRoute = inject(ActivatedRoute);
 
   ngOnInit(): void {
-    this.currentTransaction = this._activatedRoute.snapshot.data['transaction'];
+    // this.currentTransaction = this._activatedRoute.snapshot.data['transaction'];
+    this.currentTransaction = this.transaction();
 
     this.populateFormFields();
   }
