@@ -1,6 +1,6 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -63,16 +63,12 @@ export class CreateOrEdit implements OnInit {
     }
   }
 
-  get isEdit(): boolean {
-    return Boolean(this.currentTransaction);
-  }
-
   submit(): void {
     if (this.form.valid) {
       const payload = this.form.value as TransactionPayload;
 
-      if (this.isEdit) {
-        this._transactionService.edit(this.currentTransaction!.id, payload).subscribe({
+      if (this.currentTransaction) {
+        this._transactionService.edit(this.currentTransaction.id, payload).subscribe({
           next: () => {
             this._feedbackService.success('Transação alterada com sucesso!');
             this._router.navigate(['/']);
