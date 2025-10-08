@@ -25,4 +25,8 @@ export class TransactionsService {
   edit(id: number, payload: TransactionPayload): Observable<Transaction> {
     return this._httpClient.put<Transaction>(`http://localhost:3000/transactions/${id}`, payload);
   }
+
+  delete(id: number): Observable<Transaction> {
+    return this._httpClient.delete<Transaction>(`http://localhost:3000/transactions/${id}`);
+  }
 }
