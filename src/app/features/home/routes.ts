@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 
 import { Home } from './home';
-import { Create } from './pages/create/create';
+import { CreateOrEdit } from './pages/create-or-edit/create-or-edit';
+import { getTransactionByIdResolver } from './pages/create-or-edit/resolvers/get-transaction-by-id-resolver';
 
 export const routes: Routes = [
   {
@@ -10,6 +11,11 @@ export const routes: Routes = [
   },
   {
     path: 'create',
-    component: Create,
+    component: CreateOrEdit,
+  },
+  {
+    path: 'edit/:id',
+    component: CreateOrEdit,
+    resolve: { transaction: getTransactionByIdResolver },
   },
 ];

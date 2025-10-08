@@ -14,7 +14,15 @@ export class TransactionsService {
     return this._httpClient.get<Transaction[]>('http://localhost:3000/transactions');
   }
 
+  getById(id: string): Observable<Transaction> {
+    return this._httpClient.get<Transaction>(`http://localhost:3000/transactions/${id}`);
+  }
+
   create(payload: TransactionPayload): Observable<Transaction> {
     return this._httpClient.post<Transaction>('http://localhost:3000/transactions', payload);
+  }
+
+  edit(id: number, payload: TransactionPayload): Observable<Transaction> {
+    return this._httpClient.put<Transaction>(`http://localhost:3000/transactions/${id}`, payload);
   }
 }

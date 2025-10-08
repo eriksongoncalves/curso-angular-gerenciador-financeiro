@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 
 import { Balance } from './components/balance/balance';
@@ -16,9 +16,10 @@ import { TransactionsService } from '../../shared/transaction/services/transacti
   styleUrl: './home.scss',
 })
 export class Home implements OnInit {
-  private readonly _transactionService = inject(TransactionsService);
-
   transactions = signal<Transaction[]>([]);
+
+  private readonly _transactionService = inject(TransactionsService);
+  private readonly _router = inject(Router);
 
   ngOnInit(): void {
     this.getTransactions();
@@ -33,5 +34,9 @@ export class Home implements OnInit {
           this.transactions.set(transactions);
         },
       });
+  }
+
+  edit(transactionId: number): void {
+    this._router.navigate(['edit', transactionId]);
   }
 }
