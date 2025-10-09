@@ -4,32 +4,15 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
-import { provideEnvironmentNgxMask } from 'ngx-mask';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig } from '@angular/material/snack-bar';
-
-import { provideLoggedInUser } from './core/auth/initializers/provide-logged-in-user';
+import { provideCore } from './core/provide-core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(),
-    provideLoggedInUser(),
-    provideEnvironmentNgxMask({
-      thousandSeparator: '.',
-      decimalMarker: ',',
-    }),
-    {
-      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 3000,
-      } as MatSnackBarConfig,
-    },
+    provideCore(),
   ],
 };
