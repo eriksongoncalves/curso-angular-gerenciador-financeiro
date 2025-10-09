@@ -2,3 +2,19 @@ header {
   background-color: var(--mat-sys-primary);
   margin-bottom: 24px;
 }
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+
+  &-content {
+    display: flex;
+    width: 100%;
+    max-width: 720px;
+    align-items: center;
+
+    .toolbar-logout {
+      margin-left: auto;
+    }
+  }
+}
