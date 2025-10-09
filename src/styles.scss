@@ -9,6 +9,7 @@
 @use 'styles/overrides/snackbar.scss';
 @use 'styles/overrides/toolbar.scss';
 @use 'styles/custom-colors';
+@use 'styles/common/container.scss';
 
 html {
   @include mat.theme(
