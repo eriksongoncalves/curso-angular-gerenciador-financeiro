@@ -1,23 +1,31 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { switchMap, take } from 'rxjs';
 
 import { Balance } from './components/balance/balance';
 import { TransactionItem } from './components/transaction-item/transaction-item';
 import { NoTransactions } from './components/no-transactions/no-transactions';
-import { Transaction } from '../../shared/transaction/interfaces/transaction';
-import { TransactionsService } from '../../shared/transaction/services/transactions';
-import { FeedbackService } from '../../shared/transaction/services/feedback';
-import { ConfirmationDialogService } from '../../shared/dialog/confirmation/services/confirmation-dialog';
+import { TransactionsContainer } from './components/transactions-container/transactions-container';
+import { Transaction } from '../../../../shared/transaction/interfaces/transaction';
+import { TransactionsService } from '../../../../shared/transaction/services/transactions';
+import { FeedbackService } from '../../../../shared/transaction/services/feedback';
+import { ConfirmationDialogService } from '../../../../shared/dialog/confirmation/services/confirmation-dialog';
 
 @Component({
-  selector: 'app-home',
-  imports: [Balance, TransactionItem, NoTransactions, MatButtonModule, RouterLink],
-  templateUrl: './home.html',
-  styleUrl: './home.scss',
+  selector: 'app-list',
+  imports: [
+    Balance,
+    TransactionItem,
+    NoTransactions,
+    MatButtonModule,
+    RouterLink,
+    TransactionsContainer,
+  ],
+  templateUrl: './list.html',
+  styleUrl: './list.scss',
 })
-export class Home implements OnInit {
+export class List implements OnInit {
   transactions = signal<Transaction[]>([]);
 
   private readonly _router = inject(Router);
