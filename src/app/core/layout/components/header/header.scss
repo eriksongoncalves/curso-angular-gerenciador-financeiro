@@ -1,3 +1,5 @@
+@use 'variables.scss' as vars;
+
 header {
   background-color: var(--mat-sys-primary);
   margin-bottom: 24px;
@@ -10,7 +12,7 @@ header {
   &-content {
     display: flex;
     width: 100%;
-    max-width: 720px;
+    max-width: vars.$content-width;
     align-items: center;
 
     .toolbar-logout {
