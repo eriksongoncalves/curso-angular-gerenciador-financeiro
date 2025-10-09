@@ -1,15 +1,13 @@
 import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
-import { of, switchMap, tap } from 'rxjs';
+import { of } from 'rxjs';
 
-import { AuthService } from '../services/auth';
 import { AuthTokenStorageService } from '../services/auth-token-storage';
-import { LoggedInUserStoreService } from '../stores/logged-in-user-store';
+import { LoginFacadeService } from '../services/facades/login';
 
 export function provideLoggedInUser(): EnvironmentProviders {
   return provideAppInitializer(() => {
-    const _authService = inject(AuthService);
     const _authTokenStorageService = inject(AuthTokenStorageService);
-    const _loggedInUserStoreService = inject(LoggedInUserStoreService);
+    const _loginFacadeService = inject(LoginFacadeService);
 
     if (_authTokenStorageService.has()) {
       return of();
@@ -17,12 +15,6 @@ export function provideLoggedInUser(): EnvironmentProviders {
 
     const token = _authTokenStorageService.get()!;
 
-    return _authService.refreshToken(token).pipe(
-      tap((response) => {
-        _authTokenStorageService.set(response.token);
-      }),
-      switchMap((response) => _authService.getCurrentUser(response.token)),
-      tap((user) => _loggedInUserStoreService.setUser(user)),
-    );
+    return _loginFacadeService.refreshToken(token);
   });
 }
