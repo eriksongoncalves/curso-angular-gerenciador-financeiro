@@ -1,4 +1,4 @@
-import { Directive, effect, ElementRef, inject, input, Renderer2 } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, input, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appMarginBottom]',
@@ -7,14 +7,16 @@ export class MarginBottomDirective {
   private readonly _elementRef = inject(ElementRef);
   private readonly _renderer = inject(Renderer2);
 
-  appMarginBottom = input('24px', {
+  marginBottom = input('24px', {
     transform: (value: string) => value || '24px',
   });
 
+  resolvedMarginBottom = computed(() => this.marginBottom() || '24px');
+
   constructor() {
     effect(() => {
-      if (this.appMarginBottom()) {
-        this._renderer.setStyle(this._elementRef, 'margin-bottom', this.appMarginBottom());
+      if (this.resolvedMarginBottom()) {
+        this._renderer.setStyle(this._elementRef, 'margin-bottom', this.resolvedMarginBottom());
       }
     });
   }
