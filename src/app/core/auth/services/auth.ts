@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
@@ -41,5 +42,9 @@ export class AuthService {
     return of({
       token: gerarToken(),
     });
+  }
+
+  logout(): Observable<unknown> {
+    return of({});
   }
 }
