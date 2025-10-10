@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Observable, tap } from 'rxjs';
 
 import { TransactionType } from '../../../../shared/transaction/enums/transaction-type';
 import { TransactionsService } from '../../../../shared/transaction/services/transactions';
@@ -15,7 +16,8 @@ import {
   TransactionPayload,
 } from '../../../../shared/transaction/interfaces/transaction';
 import { FeedbackService } from '../../../../shared/transaction/services/feedback';
-import { Observable, tap } from 'rxjs';
+import { FullWidthDirective } from '../../../../shared/material/form-field/directives/full-width';
+import { MarginBottomDirective } from '../../../../shared/material/form-field/directives/margin-bottom';
 
 @Component({
   selector: 'app-create',
@@ -26,6 +28,8 @@ import { Observable, tap } from 'rxjs';
     ReactiveFormsModule,
     MatButtonToggleModule,
     NgxMaskDirective,
+    FullWidthDirective,
+    MarginBottomDirective,
   ],
   templateUrl: './create-or-edit.html',
   styleUrl: './create-or-edit.scss',
